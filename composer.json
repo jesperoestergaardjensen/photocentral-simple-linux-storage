@@ -1,0 +1,24 @@
+{
+    "name": "jesperoestergaardjensen/photocentral-simple-linux-storage",
+    "description": "Simple linux storage for PhotoCentral",
+    "license": "gpl-3.0",
+    "require": {
+        "php": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhotoCentralSimpleLinuxStorage\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhotoCentralSimpleLinuxStorage\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
