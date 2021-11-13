@@ -2,8 +2,11 @@
     "name": "jesperoestergaardjensen/photocentral-simple-linux-storage",
     "description": "Simple linux storage for PhotoCentral",
     "license": "gpl-3.0",
+    "minimum-stability": "dev",
     "require": {
-        "php": "^7.4"
+        "php": "^7.4",
+        "jesperoestergaardjensen/photocentral-storage" : "dev-main",
+        "jesperoestergaardjensen/linux-file-system-helper": "v1.0.0-beta.2"
     },
     "autoload": {
         "psr-4": {
