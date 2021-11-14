@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "56a7190e4347b47ddb557fc91f6e7d6a",
+    "content-hash": "b79d7e644e4851ca0b99fd73683b7eb6",
     "packages": [
         {
             "name": "jesperoestergaardjensen/linux-file-system-helper",
-            "version": "v1.0.0-beta.2",
+            "version": "v1.0.0-beta.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/LinuxFileSystemHelper.git",
-                "reference": "b2f2a0ba00440393a9b373d3a68f803f6face897"
+                "reference": "2690e3c7d9643a98dcd7ac50330a221e13627600"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/LinuxFileSystemHelper/zipball/b2f2a0ba00440393a9b373d3a68f803f6face897",
-                "reference": "b2f2a0ba00440393a9b373d3a68f803f6face897",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/LinuxFileSystemHelper/zipball/2690e3c7d9643a98dcd7ac50330a221e13627600",
+                "reference": "2690e3c7d9643a98dcd7ac50330a221e13627600",
                 "shasum": ""
             },
             "require": {
@@ -39,9 +39,9 @@
             "description": "Small helper to perform Linux file system specific operations",
             "support": {
                 "issues": "https://github.com/jesperoestergaardjensen/LinuxFileSystemHelper/issues",
-                "source": "https://github.com/jesperoestergaardjensen/LinuxFileSystemHelper/tree/v1.0.0-beta.2"
+                "source": "https://github.com/jesperoestergaardjensen/LinuxFileSystemHelper/tree/v1.0.0-beta.3"
             },
-            "time": "2021-11-13T10:18:25+00:00"
+            "time": "2021-11-14T15:25:53+00:00"
         },
         {
             "name": "jesperoestergaardjensen/photocentral-storage",
