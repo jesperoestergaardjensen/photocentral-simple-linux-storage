@@ -5,6 +5,7 @@ namespace PhotoCentralSimpleLinuxStorage\Tests\unit;
 use PhotoCentralSimpleLinuxStorage\Factory\PhotoUuidFactory;
 use PhotoCentralSimpleLinuxStorage\SimpleLinuxStorage;
 use PhotoCentralStorage\Exception\PhotoCentralStorageException;
+use PhotoCentralStorage\Model\ImageDimensions;
 use PHPUnit\Framework\TestCase;
 
 class SimpleLinuxStorageTest extends TestCase
@@ -22,9 +23,14 @@ class SimpleLinuxStorageTest extends TestCase
         return dirname(__DIR__) . "/data/photos/";
     }
 
+    private function getImageCacheTestFolder()
+    {
+        return dirname(__DIR__) . "/data/image_cache/";
+    }
+
     public function setUp(): void
     {
-        $this->simple_linux_storage = new SimpleLinuxStorage($this->getPhotosTestFolder(), 'b', 'c');
+        $this->simple_linux_storage = new SimpleLinuxStorage($this->getPhotosTestFolder(), $this->getImageCacheTestFolder());
     }
 
     public function testListPhotoCollections()
@@ -101,6 +107,20 @@ class SimpleLinuxStorageTest extends TestCase
     {
         $this->assertTrue($this->simple_linux_storage->undoSoftDeletePhoto(self::DELETED_PHOTO_UUID_1));
         $this->assertTrue($this->simple_linux_storage->undoSoftDeletePhoto(self::DELETED_PHOTO_UUID_2));
+    }
+
+    public function testGetPhotoPath()
+    {
+        $test_photo_file_1 = self::getPhotosTestFolder() . self::TEST_PHOTO_FILE_NAME_1;
+        $photo_uuid_1 = PhotoUuidFactory::generatePhotoUuid($test_photo_file_1);
+        $photo_path = $this->simple_linux_storage->getPhotoPath($photo_uuid_1, ImageDimensions::createThumb());
+
+        $expected_path = $this->getImageCacheTestFolder() . ImageDimensions::THUMB_ID. DIRECTORY_SEPARATOR. "$photo_uuid_1.jpg";
+        $this->assertEquals($expected_path, $photo_path);
+
+        // Clean up after test
+        unlink($photo_path);
+        rmdir($this->getImageCacheTestFolder() . ImageDimensions::THUMB_ID. DIRECTORY_SEPARATOR);
     }
 }
 

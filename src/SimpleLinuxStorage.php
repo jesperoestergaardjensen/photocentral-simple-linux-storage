@@ -4,11 +4,14 @@ namespace PhotoCentralSimpleLinuxStorage;
 
 use LinuxFileSystemHelper\FileHelper;
 use LinuxFileSystemHelper\FolderHelper;
+use LinuxImageHelper\Exception\LinuxImageHelperException;
 use PhotoCentralSimpleLinuxStorage\Factory\LinuxFileFactory;
 use PhotoCentralSimpleLinuxStorage\Factory\PhotoFactory;
 use PhotoCentralSimpleLinuxStorage\Model\LinuxFile;
+use PhotoCentralSimpleLinuxStorage\Service\PhotoRetrivalService;
 use PhotoCentralStorage\Exception\PhotoCentralStorageException;
 use PhotoCentralStorage\Factory\ExifDataFactory;
+use PhotoCentralStorage\Model\ImageDimensions;
 use PhotoCentralStorage\Photo;
 use PhotoCentralStorage\PhotoCollection;
 use PhotoCentralStorage\PhotoStorage;
@@ -19,7 +22,6 @@ class SimpleLinuxStorage implements PhotoStorage
     public const TRASH_FOLDER_NAME   = '.trash/';
 
     private string $photo_path;
-    private string $status_file_path;
     private PhotoCollection $photo_collection;
     /**
      * @var null|LinuxFile[]
@@ -28,10 +30,9 @@ class SimpleLinuxStorage implements PhotoStorage
     private ?array $photo_map = null;
     private string $image_cache_path;
 
-    public function __construct(string $photo_path, string $status_file_path, string $image_cache_path)
+    public function __construct(string $photo_path, string $image_cache_path)
     {
         $this->photo_path = $photo_path;
-        $this->status_file_path = $status_file_path;
         $this->photo_collection = new PhotoCollection(self::PHOTO_COLLECTION_ID, 'Photo folder',
             "Simple Linux Storage folder ($this->photo_path)");
         $this->image_cache_path = $image_cache_path;
@@ -52,6 +53,15 @@ class SimpleLinuxStorage implements PhotoStorage
 
         return $search_result_list;
     }
+
+    // TODO : Tanker ved exit søndag aften 14-11-2021
+
+    /**
+     * order by på tid kan måske gøre allerede ved fil liste generering?
+     *
+     * filter måske på sigt : GPS info eller ej, kamera type, billeder over en vis størrelse
+     *
+     */
 
     public function listPhotos(
         int $start_unix_timestamp,
@@ -192,5 +202,16 @@ class SimpleLinuxStorage implements PhotoStorage
                 $this->photo_map[$new_linux_file->getPhotoUuid()] = $new_photo;
             }
         }
+    }
+
+    /**
+     * @throws PhotoCentralStorageException
+     * @throws LinuxImageHelperException
+     */
+    public function getPhotoPath(string $photo_uuid, ImageDimensions $image_dimensions): string
+    {
+        $this->readPhotos();
+        $photo_retrival_service = new PhotoRetrivalService($this->photo_path, $this->image_cache_path);
+        return $photo_retrival_service->getPhotoPath($this->linux_file_map[$photo_uuid], $image_dimensions);
     }
 }

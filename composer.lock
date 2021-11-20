@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b79d7e644e4851ca0b99fd73683b7eb6",
+    "content-hash": "ee7a40126da76b8537010187bfaceb4e",
     "packages": [
         {
             "name": "jesperoestergaardjensen/linux-file-system-helper",
@@ -44,17 +44,56 @@
             "time": "2021-11-14T15:25:53+00:00"
         },
         {
+            "name": "jesperoestergaardjensen/linux-image-helper",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jesperoestergaardjensen/LinuxImageHelper.git",
+                "reference": "b300e84f6493208d8e17e41fdb2872a0a71508ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/LinuxImageHelper/zipball/b300e84f6493208d8e17e41fdb2872a0a71508ec",
+                "reference": "b300e84f6493208d8e17e41fdb2872a0a71508ec",
+                "shasum": ""
+            },
+            "require": {
+                "ext-exif": "*",
+                "ext-gd": "*",
+                "php": "^7.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LinuxImageHelper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "gpl-3.0"
+            ],
+            "description": "Small repository to make it easier to work with images",
+            "support": {
+                "issues": "https://github.com/jesperoestergaardjensen/LinuxImageHelper/issues",
+                "source": "https://github.com/jesperoestergaardjensen/LinuxImageHelper/tree/v0.1.1"
+            },
+            "time": "2021-11-20T21:35:50+00:00"
+        },
+        {
             "name": "jesperoestergaardjensen/photocentral-storage",
             "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/photocentral-storage.git",
-                "reference": "b5ca1b0dd7791586b64e04401a3281c6b56f9b4a"
+                "reference": "f8103b5c3c0d57d8e53d98d0c846f5cf3040b1b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/b5ca1b0dd7791586b64e04401a3281c6b56f9b4a",
-                "reference": "b5ca1b0dd7791586b64e04401a3281c6b56f9b4a",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/f8103b5c3c0d57d8e53d98d0c846f5cf3040b1b5",
+                "reference": "f8103b5c3c0d57d8e53d98d0c846f5cf3040b1b5",
                 "shasum": ""
             },
             "require": {
@@ -80,7 +119,7 @@
                 "issues": "https://github.com/jesperoestergaardjensen/photocentral-storage/issues",
                 "source": "https://github.com/jesperoestergaardjensen/photocentral-storage/tree/main"
             },
-            "time": "2021-11-13T21:46:54+00:00"
+            "time": "2021-11-20T19:07:16+00:00"
         }
     ],
     "packages-dev": [
@@ -616,12 +655,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "9f37d464d6bc3cf1b379f785b66a2ce77bf523a6"
+                "reference": "f301eb1453c9e7a1bc912ee8b0ea9db22c60223b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/9f37d464d6bc3cf1b379f785b66a2ce77bf523a6",
-                "reference": "9f37d464d6bc3cf1b379f785b66a2ce77bf523a6",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f301eb1453c9e7a1bc912ee8b0ea9db22c60223b",
+                "reference": "f301eb1453c9e7a1bc912ee8b0ea9db22c60223b",
                 "shasum": ""
             },
             "require": {
@@ -677,7 +716,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.9"
             },
             "funding": [
                 {
@@ -685,7 +724,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-06T06:50:45+00:00"
+            "time": "2021-11-19T15:21:02+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
