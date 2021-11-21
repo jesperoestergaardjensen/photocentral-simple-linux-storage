@@ -16,7 +16,7 @@ class PhotoFactory
     {
         return new Photo(
             $linux_file->getPhotoUuid(),
-            SimpleLinuxStorage::PHOTO_COLLECTION_ID,
+            SimpleLinuxStorage::PHOTO_COLLECTION_UUID,
             $exif_data->getWidth(),
             $exif_data->getHeight(),
             $exif_data->getOrientation(),

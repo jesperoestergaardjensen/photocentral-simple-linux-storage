@@ -12,14 +12,22 @@ use PhotoCentralSimpleLinuxStorage\Service\PhotoRetrivalService;
 use PhotoCentralStorage\Exception\PhotoCentralStorageException;
 use PhotoCentralStorage\Factory\ExifDataFactory;
 use PhotoCentralStorage\Model\ImageDimensions;
+use PhotoCentralStorage\Model\PhotoFilter\PhotoCollectionIdFilter;
+use PhotoCentralStorage\Model\PhotoFilter\PhotoFilter;
+use PhotoCentralStorage\Model\PhotoFilter\PhotoTimestampRangeFilter;
+use PhotoCentralStorage\Model\PhotoFilter\PhotoUuidFilter;
+use PhotoCentralStorage\Model\PhotoSorting\BasicSorting;
+use PhotoCentralStorage\Model\PhotoSorting\PhotoSorting;
+use PhotoCentralStorage\Model\PhotoSorting\SortByAddedTimestamp;
+use PhotoCentralStorage\Model\PhotoSorting\SortByCreatedTimestamp;
 use PhotoCentralStorage\Photo;
 use PhotoCentralStorage\PhotoCollection;
 use PhotoCentralStorage\PhotoStorage;
 
 class SimpleLinuxStorage implements PhotoStorage
 {
-    public const PHOTO_COLLECTION_ID = 1;
-    public const TRASH_FOLDER_NAME   = '.trash/';
+    public const PHOTO_COLLECTION_UUID = '427e8cdc-2275-4b54-942c-3295b2e300e2';
+    public const TRASH_FOLDER_NAME     = '.trash/';
 
     private string $photo_path;
     private PhotoCollection $photo_collection;
@@ -27,13 +35,16 @@ class SimpleLinuxStorage implements PhotoStorage
      * @var null|LinuxFile[]
      */
     private ?array $linux_file_map = null;
+    /**
+     * @var null|Photo[]
+     */
     private ?array $photo_map = null;
     private string $image_cache_path;
 
     public function __construct(string $photo_path, string $image_cache_path)
     {
         $this->photo_path = $photo_path;
-        $this->photo_collection = new PhotoCollection(self::PHOTO_COLLECTION_ID, 'Photo folder',
+        $this->photo_collection = new PhotoCollection(self::PHOTO_COLLECTION_UUID, 'Photo folder',
             "Simple Linux Storage folder ($this->photo_path)");
         $this->image_cache_path = $image_cache_path;
     }
@@ -54,28 +65,102 @@ class SimpleLinuxStorage implements PhotoStorage
         return $search_result_list;
     }
 
-    // TODO : Tanker ved exit søndag aften 14-11-2021
-
-    /**
-     * order by på tid kan måske gøre allerede ved fil liste generering?
-     *
-     * filter måske på sigt : GPS info eller ej, kamera type, billeder over en vis størrelse
-     *
-     */
-
-    public function listPhotos(
-        int $start_unix_timestamp,
-        int $end_unix_timestamp,
-        $order_by,
-        int $limit,
-        array $photo_collection_filter_uuid_list = null
-    ): array {
-
+    public function listPhotos(array $photo_filters = null, PhotoSorting $photo_sorting = null, int $limit = 5): array
+    {
         $this->readPhotos();
 
-        return $this->photo_map;
+        $photo_list = $this->photo_map;
+
+        if ($photo_filters !== null) {
+            $photo_list = $this->filterPhotoList($photo_filters);
+        }
+
+        if ($photo_sorting !== null) {
+            $photo_list = $this->sortPhotoList($photo_sorting, $photo_list);
+        }
+
+        return array_slice($photo_list, 0, $limit, true);
     }
 
+    /**
+     * @param PhotoFilter[] $photo_filters
+     *
+     * @return Photo[]
+     */
+    private function filterPhotoList(array $photo_filters): array
+    {
+        $photo_list = [];
+        foreach ($this->photo_map as $photo) {
+            foreach ($photo_filters as $photo_filter) {
+                $photo_uuid = $photo->getPhotoUuid();
+
+                // TODO : This is not SOLID enough
+                if ($photo_filter instanceof PhotoUuidFilter) {
+                    if (in_array($photo_uuid, $photo_filter->getPhotoUuidList())) {
+                        $photo_list[$photo_uuid] = $photo;
+                    } else {
+                        if (array_key_exists($photo_uuid, $photo_list)) {
+                            unset($photo_list[$photo_uuid]);
+                        }
+                        break;
+                    }
+                }
+
+                if ($photo_filter instanceof PhotoTimestampRangeFilter) {
+                    if ($photo->getExifDateTime() >= $photo_filter->getStartTimestamp() && $photo->getExifDateTime() <= $photo_filter->getEndTimestamp()) {
+                        $photo_list[$photo_uuid] = $photo;
+                    } else {
+                        if (array_key_exists($photo_uuid, $photo_list)) {
+                            unset($photo_list[$photo_uuid]);
+                        }
+                        break;
+                    }
+                }
+
+                if ($photo_filter instanceof PhotoCollectionIdFilter) {
+                    if (in_array($photo->getPhotoCollectionUuid(), $photo_filter->getPhotoCollectionIdList())) {
+                        $photo_list[$photo_uuid] = $photo;
+                    } else {
+                        if (array_key_exists($photo_uuid, $photo_list)) {
+                            unset($photo_list[$photo_uuid]);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return $photo_list;
+    }
+
+    /**
+     * @param PhotoSorting $photo_sorting
+     * @param Photo[]      $photo_list
+     *
+     * @return Photo[]
+     */
+    private function sortPhotoList(PhotoSorting $photo_sorting, array $photo_list): array
+    {
+        // TODO : This is not SOLID enough
+        if ($photo_sorting instanceof SortByCreatedTimestamp) {
+            if ($photo_sorting->getDirection() === BasicSorting::ASC) {
+                uasort($photo_list, fn($a, $b) => ($a->getExifDateTime() ?? $a->getFallbackDateTime()) > ($b->getExifDateTime() ?? $b->getFallbackDateTime()));
+            } else {
+                uasort($photo_list, fn($a, $b) => ($a->getExifDateTime() ?? $a->getFallbackDateTime()) < ($b->getExifDateTime() ?? $b->getFallbackDateTime()));
+            }
+        } else if ($photo_sorting instanceof SortByAddedTimestamp) {
+            if ($photo_sorting->getDirection() === BasicSorting::ASC) {
+                uasort($photo_list, fn($a, $b) => ($a->getPhotoAddedDateTime()) > ($b->getPhotoAddedDateTime()));
+            } else {
+                uasort($photo_list, fn($a, $b) => ($a->getPhotoAddedDateTime()) < ($b->getPhotoAddedDateTime()));
+            }
+        }
+
+        return $photo_list;
+    }
+
+    /**
+     * @throws PhotoCentralStorageException
+     */
     public function getPhoto(string $photo_uuid): Photo
     {
         $this->readPhotos();
@@ -85,19 +170,6 @@ class SimpleLinuxStorage implements PhotoStorage
         }
 
         return $this->photo_map[$photo_uuid];
-    }
-
-    public function getPhotos(array $photo_uuid_list): array
-    {
-        $this->readPhotos();
-
-        $photo_list = [];
-
-        foreach ($photo_uuid_list as $photo_uuid) {
-            $photo_list[] = $this->getPhoto($photo_uuid);
-        }
-
-        return $photo_list;
     }
 
     public function softDeletePhoto(string $photo_uuid): bool
@@ -161,7 +233,8 @@ class SimpleLinuxStorage implements PhotoStorage
         return [$this->photo_collection];
     }
 
-    private function removeUnusedFoldersRecursively(string $path): void {
+    private function removeUnusedFoldersRecursively(string $path): void
+    {
         if (FolderHelper::isFolderEmpty($path)) {
             rmdir($path);
             $this->removeUnusedFoldersRecursively(dirname($path));
@@ -191,7 +264,8 @@ class SimpleLinuxStorage implements PhotoStorage
     {
         if ($this->linux_file_map === null && $this->photo_map === null) {
             // TODO: Simple Linux Storage should have a upper limit
-            $jpg_file_list = FolderHelper::listFilesRecursiveFromFolder($this->photo_path, '.jpg', [trim(self::TRASH_FOLDER_NAME, '/')]);
+            $jpg_file_list = FolderHelper::listFilesRecursiveFromFolder($this->photo_path, '.jpg',
+                [trim(self::TRASH_FOLDER_NAME, '/')]);
 
             foreach ($jpg_file_list as $jpg_file) {
                 $new_linux_file = LinuxFileFactory::createLinuxFile($jpg_file, $this->photo_path);
@@ -212,6 +286,7 @@ class SimpleLinuxStorage implements PhotoStorage
     {
         $this->readPhotos();
         $photo_retrival_service = new PhotoRetrivalService($this->photo_path, $this->image_cache_path);
+
         return $photo_retrival_service->getPhotoPath($this->linux_file_map[$photo_uuid], $image_dimensions);
     }
 }

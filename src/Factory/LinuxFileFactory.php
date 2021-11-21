@@ -43,7 +43,7 @@ class LinuxFileFactory
             $filenameParts['basename'],
             self::generate_file_path($filenameParts['dirname'], $base_path),
             strtotime($fileModifyDate),
-            SimpleLinuxStorage::PHOTO_COLLECTION_ID,
+            SimpleLinuxStorage::PHOTO_COLLECTION_UUID,
             PhotoUuidFactory::generatePhotoUuid($full_file_name_and_path),
         );
     }
