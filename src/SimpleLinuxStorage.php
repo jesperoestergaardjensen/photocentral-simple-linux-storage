@@ -14,7 +14,7 @@ use PhotoCentralStorage\Factory\ExifDataFactory;
 use PhotoCentralStorage\Model\ImageDimensions;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoCollectionIdFilter;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoFilter;
-use PhotoCentralStorage\Model\PhotoFilter\PhotoTimestampRangeFilter;
+use PhotoCentralStorage\Model\PhotoFilter\CreatedTimestampRangeFilter;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoUuidFilter;
 use PhotoCentralStorage\Model\PhotoSorting\BasicSorting;
 use PhotoCentralStorage\Model\PhotoSorting\PhotoSorting;
@@ -22,9 +22,9 @@ use PhotoCentralStorage\Model\PhotoSorting\SortByAddedTimestamp;
 use PhotoCentralStorage\Model\PhotoSorting\SortByCreatedTimestamp;
 use PhotoCentralStorage\Photo;
 use PhotoCentralStorage\PhotoCollection;
-use PhotoCentralStorage\PhotoStorage;
+use PhotoCentralStorage\PhotoCentralStorage;
 
-class SimpleLinuxStorage implements PhotoStorage
+class SimpleLinuxStorage implements PhotoCentralStorage
 {
     public const PHOTO_COLLECTION_UUID = '427e8cdc-2275-4b54-942c-3295b2e300e2';
     public const TRASH_FOLDER_NAME     = '.trash/';
@@ -106,7 +106,7 @@ class SimpleLinuxStorage implements PhotoStorage
                     }
                 }
 
-                if ($photo_filter instanceof PhotoTimestampRangeFilter) {
+                if ($photo_filter instanceof CreatedTimestampRangeFilter) {
                     if ($photo->getExifDateTime() >= $photo_filter->getStartTimestamp() && $photo->getExifDateTime() <= $photo_filter->getEndTimestamp()) {
                         $photo_list[$photo_uuid] = $photo;
                     } else {
