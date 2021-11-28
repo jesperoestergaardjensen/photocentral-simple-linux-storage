@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee7a40126da76b8537010187bfaceb4e",
+    "content-hash": "5d63da0d2bab15e94f11b983d34d8fd1",
     "packages": [
         {
             "name": "jesperoestergaardjensen/linux-file-system-helper",
@@ -45,20 +45,19 @@
         },
         {
             "name": "jesperoestergaardjensen/linux-image-helper",
-            "version": "v0.1.1",
+            "version": "v0.1.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jesperoestergaardjensen/LinuxImageHelper.git",
-                "reference": "b300e84f6493208d8e17e41fdb2872a0a71508ec"
+                "url": "https://github.com/jesperoestergaardjensen/linux-image-helper.git",
+                "reference": "57555955e07e072fb598e980a5d49027b7cdc2a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/LinuxImageHelper/zipball/b300e84f6493208d8e17e41fdb2872a0a71508ec",
-                "reference": "b300e84f6493208d8e17e41fdb2872a0a71508ec",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/linux-image-helper/zipball/57555955e07e072fb598e980a5d49027b7cdc2a0",
+                "reference": "57555955e07e072fb598e980a5d49027b7cdc2a0",
                 "shasum": ""
             },
             "require": {
-                "ext-exif": "*",
                 "ext-gd": "*",
                 "php": "^7.4"
             },
@@ -77,10 +76,10 @@
             ],
             "description": "Small repository to make it easier to work with images",
             "support": {
-                "issues": "https://github.com/jesperoestergaardjensen/LinuxImageHelper/issues",
-                "source": "https://github.com/jesperoestergaardjensen/LinuxImageHelper/tree/v0.1.1"
+                "issues": "https://github.com/jesperoestergaardjensen/linux-image-helper/issues",
+                "source": "https://github.com/jesperoestergaardjensen/linux-image-helper/tree/v0.1.3"
             },
-            "time": "2021-11-20T21:35:50+00:00"
+            "time": "2021-11-28T16:12:41+00:00"
         },
         {
             "name": "jesperoestergaardjensen/photocentral-storage",
@@ -536,12 +535,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "2a7ec2a310e8dff274c8af3bf3005288f0b1b7f6"
+                "reference": "f8ec4ab631de5a97769e66b13418c3b8b24e81f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/2a7ec2a310e8dff274c8af3bf3005288f0b1b7f6",
-                "reference": "2a7ec2a310e8dff274c8af3bf3005288f0b1b7f6",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/f8ec4ab631de5a97769e66b13418c3b8b24e81f4",
+                "reference": "f8ec4ab631de5a97769e66b13418c3b8b24e81f4",
                 "shasum": ""
             },
             "require": {
@@ -579,7 +578,7 @@
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
                 "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.x"
             },
-            "time": "2021-11-09T20:01:14+00:00"
+            "time": "2021-11-24T08:29:39+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -1924,7 +1923,6 @@
                     "type": "github"
                 }
             ],
-            "abandoned": true,
             "time": "2020-09-28T06:45:17+00:00"
         },
         {
