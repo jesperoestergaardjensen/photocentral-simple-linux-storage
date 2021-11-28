@@ -5,12 +5,14 @@ namespace PhotoCentralSimpleLinuxStorage;
 use LinuxFileSystemHelper\FileHelper;
 use LinuxFileSystemHelper\FolderHelper;
 use LinuxImageHelper\Exception\LinuxImageHelperException;
+use LinuxImageHelper\Service\JpgImageService;
 use PhotoCentralSimpleLinuxStorage\Factory\LinuxFileFactory;
 use PhotoCentralSimpleLinuxStorage\Factory\PhotoFactory;
 use PhotoCentralSimpleLinuxStorage\Model\LinuxFile;
 use PhotoCentralSimpleLinuxStorage\Service\PhotoRetrivalService;
 use PhotoCentralStorage\Exception\PhotoCentralStorageException;
 use PhotoCentralStorage\Factory\ExifDataFactory;
+use PhotoCentralStorage\Model\ExifData;
 use PhotoCentralStorage\Model\ImageDimensions;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoCollectionIdFilter;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoFilter;
@@ -269,7 +271,22 @@ class SimpleLinuxStorage implements PhotoCentralStorage
 
             foreach ($jpg_file_list as $jpg_file) {
                 $new_linux_file = LinuxFileFactory::createLinuxFile($jpg_file, $this->photo_path);
-                $exif_data = ExifDataFactory::createExifData($new_linux_file->getFullFileNameAndPath($this->photo_path));
+
+                try {
+                    $exif_data = ExifDataFactory::createExifData($new_linux_file->getFullFileNameAndPath($this->photo_path));
+                } catch (PhotoCentralStorageException $photo_central_storage_exception) {
+                    $jpg_file = (new JpgImageService)->createJpg($new_linux_file->getFullFileNameAndPath($this->photo_path));
+                    $exif_data = new ExifData(
+                        $jpg_file->getWidth(),
+                        $jpg_file->getHeight(),
+                        0,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    );
+                }
                 $new_photo = PhotoFactory::createPhoto($new_linux_file, $exif_data);
 
                 $this->linux_file_map[$new_linux_file->getPhotoUuid()] = $new_linux_file;
