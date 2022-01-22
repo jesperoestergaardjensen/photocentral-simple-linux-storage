@@ -46,12 +46,12 @@ class SimpleLinuxStorage implements PhotoCentralStorage
     public function __construct(string $photo_path, string $image_cache_path)
     {
         $this->photo_path = $photo_path;
-        $this->photo_collection = new PhotoCollection(self::PHOTO_COLLECTION_UUID, 'Photo folder',
-            "Simple Linux Storage folder ($this->photo_path)");
+        $this->photo_collection = new PhotoCollection(self::PHOTO_COLLECTION_UUID, 'Photo folder', true,
+            "Simple Linux Storage folder ($this->photo_path)", null);
         $this->image_cache_path = $image_cache_path;
     }
 
-    public function searchPhotos(string $search_string): array
+    public function searchPhotos(string $search_string, ?array $photo_collection_id_list, int $limit = 10): array
     {
         $search_result_list = [];
         $this->readPhotos();
@@ -67,7 +67,11 @@ class SimpleLinuxStorage implements PhotoCentralStorage
         return $search_result_list;
     }
 
-    public function listPhotos(array $photo_filters = null, PhotoSorting $photo_sorting = null, int $limit = 5): array
+    public function listPhotos(
+        array $photo_filters = null,
+        array $photo_sorting_parameters = null,
+        int $limit = 5
+    ): array
     {
         $this->readPhotos();
 
@@ -77,8 +81,8 @@ class SimpleLinuxStorage implements PhotoCentralStorage
             $photo_list = $this->filterPhotoList($photo_filters);
         }
 
-        if ($photo_sorting !== null) {
-            $photo_list = $this->sortPhotoList($photo_sorting, $photo_list);
+        if ($photo_sorting_parameters !== null) {
+            $photo_list = $this->sortPhotoList($photo_sorting_parameters[0], $photo_list);
         }
 
         return array_slice($photo_list, 0, $limit, true);
@@ -120,7 +124,7 @@ class SimpleLinuxStorage implements PhotoCentralStorage
                 }
 
                 if ($photo_filter instanceof PhotoCollectionIdFilter) {
-                    if (in_array($photo->getPhotoCollectionUuid(), $photo_filter->getPhotoCollectionIdList())) {
+                    if (in_array($photo->getPhotoCollectionId(), $photo_filter->getPhotoCollectionIdList())) {
                         $photo_list[$photo_uuid] = $photo;
                     } else {
                         if (array_key_exists($photo_uuid, $photo_list)) {
@@ -163,7 +167,7 @@ class SimpleLinuxStorage implements PhotoCentralStorage
     /**
      * @throws PhotoCentralStorageException
      */
-    public function getPhoto(string $photo_uuid): Photo
+    public function getPhoto(string $photo_uuid, string $photo_collection_id): Photo
     {
         $this->readPhotos();
 
@@ -299,11 +303,29 @@ class SimpleLinuxStorage implements PhotoCentralStorage
      * @throws PhotoCentralStorageException
      * @throws LinuxImageHelperException
      */
-    public function getPhotoPath(string $photo_uuid, ImageDimensions $image_dimensions): string
+    public function getPathOrUrlToPhoto(string $photo_uuid, ImageDimensions $image_dimensions,?string $photo_collection_id): string
     {
         $this->readPhotos();
         $photo_retrival_service = new PhotoRetrivalService($this->photo_path, $this->image_cache_path);
 
         return $photo_retrival_service->getPhotoPath($this->linux_file_map[$photo_uuid], $image_dimensions);
+    }
+
+    public function getPathOrUrlToCachedPhoto(
+        string $photo_uuid,
+        ImageDimensions $image_dimensions,
+        ?string $photo_collection_id
+    ): string {
+        return '';
+    }
+
+    public function setPhotoCache(string $photo_cache_path): void
+    {
+        // TODO: Implement setPhotoCache() method.
+    }
+
+    public function getPhotoCache(): string
+    {
+        return '';
     }
 }

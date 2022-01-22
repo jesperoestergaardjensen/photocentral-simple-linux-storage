@@ -57,14 +57,14 @@ class SimpleLinuxStorageTest extends TestCase
 
         $photo_uuid = PhotoUuidFactory::generatePhotoUuid($test_photo_file);
 
-        $photo = $this->simple_linux_storage->getPhoto($photo_uuid);
+        $photo = $this->simple_linux_storage->getPhoto($photo_uuid, SimpleLinuxStorage::PHOTO_COLLECTION_UUID);
 
         $this->assertEquals('ASUS', $photo->getCameraBrand());
         $this->assertEquals(386, $photo->getHeight());
         $this->assertEquals(686, $photo->getWidth());
 
         $this->expectException(PhotoCentralStorageException::class);
-        $this->simple_linux_storage->getPhoto('non-existing-uuid');
+        $this->simple_linux_storage->getPhoto('non-existing-uuid', SimpleLinuxStorage::PHOTO_COLLECTION_UUID);
     }
 
     public function testListPhotosCaseA()
@@ -84,7 +84,7 @@ class SimpleLinuxStorageTest extends TestCase
         // Test the sorting
         $photo_list = $this->simple_linux_storage->listPhotos(
             null,
-            new SortByCreatedTimestamp(BasicSorting::DESC),
+            [new SortByCreatedTimestamp(BasicSorting::DESC)],
             25
         );
 
@@ -158,10 +158,10 @@ class SimpleLinuxStorageTest extends TestCase
 
     public function testSearch()
     {
-        $search_result_list = $this->simple_linux_storage->searchPhotos('ball');
+        $search_result_list = $this->simple_linux_storage->searchPhotos('ball', [SimpleLinuxStorage::PHOTO_COLLECTION_UUID]);
         $this->assertCount(3, $search_result_list, 'three images should be found');
 
-        $search_result_list = $this->simple_linux_storage->searchPhotos('coffee');
+        $search_result_list = $this->simple_linux_storage->searchPhotos('coffee', [SimpleLinuxStorage::PHOTO_COLLECTION_UUID]);
         $this->assertCount(1, $search_result_list, 'one image should be found');
     }
 
@@ -184,7 +184,7 @@ class SimpleLinuxStorageTest extends TestCase
     {
         $test_photo_file_1 = self::getPhotosTestFolder() . self::TEST_PHOTO_FILE_NAME_1;
         $photo_uuid_1 = PhotoUuidFactory::generatePhotoUuid($test_photo_file_1);
-        $photo_path = $this->simple_linux_storage->getPhotoPath($photo_uuid_1, ImageDimensions::createThumb());
+        $photo_path = $this->simple_linux_storage->getPathOrUrlToPhoto($photo_uuid_1, ImageDimensions::createFromId(ImageDimensions::THUMB_ID), null);
 
         $expected_path = $this->getImageCacheTestFolder() . ImageDimensions::THUMB_ID . DIRECTORY_SEPARATOR . "$photo_uuid_1.jpg";
         $this->assertEquals($expected_path, $photo_path);

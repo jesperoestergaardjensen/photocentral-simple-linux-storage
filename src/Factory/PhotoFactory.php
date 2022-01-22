@@ -21,10 +21,11 @@ class PhotoFactory
             $exif_data->getHeight(),
             $exif_data->getOrientation(),
             time(),
+            $exif_data->getExifDateTime(),
             $linux_file->getLastModifiedDate(),
-            $exif_data->getCameraModel(),
+            null,
             $exif_data->getCameraBrand(),
-            $exif_data->getExifDateTime()
+            $exif_data->getCameraModel(),
         );
     }
 }
