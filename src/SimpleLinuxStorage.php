@@ -41,14 +41,15 @@ class SimpleLinuxStorage implements PhotoCentralStorage
      * @var null|Photo[]
      */
     private ?array $photo_map = null;
-    private string $image_cache_path;
+    private ?string $photo_cache_path;
 
-    public function __construct(string $photo_path, string $image_cache_path)
+    // TODO : SimpleLinuxStorage has to follow the interface allowing no cache path to be set - but no implementation have been made to handle this yet !!!
+    public function __construct(string $photo_path, ?string $photo_cache_path)
     {
         $this->photo_path = $photo_path;
         $this->photo_collection = new PhotoCollection(self::PHOTO_COLLECTION_UUID, 'Photo folder', true,
             "Simple Linux Storage folder ($this->photo_path)", null);
-        $this->image_cache_path = $image_cache_path;
+        $this->photo_cache_path = $photo_cache_path;
     }
 
     public function searchPhotos(string $search_string, ?array $photo_collection_id_list, int $limit = 10): array
@@ -67,6 +68,7 @@ class SimpleLinuxStorage implements PhotoCentralStorage
         return $search_result_list;
     }
 
+    // TODO : Make SimpleLinuxStorage do not respect multple sortings yet !!!
     public function listPhotos(
         array $photo_filters = null,
         array $photo_sorting_parameters = null,
@@ -74,7 +76,6 @@ class SimpleLinuxStorage implements PhotoCentralStorage
     ): array
     {
         $this->readPhotos();
-
         $photo_list = $this->photo_map;
 
         if ($photo_filters !== null) {
@@ -292,7 +293,6 @@ class SimpleLinuxStorage implements PhotoCentralStorage
                     );
                 }
                 $new_photo = PhotoFactory::createPhoto($new_linux_file, $exif_data);
-
                 $this->linux_file_map[$new_linux_file->getPhotoUuid()] = $new_linux_file;
                 $this->photo_map[$new_linux_file->getPhotoUuid()] = $new_photo;
             }
@@ -306,7 +306,7 @@ class SimpleLinuxStorage implements PhotoCentralStorage
     public function getPathOrUrlToPhoto(string $photo_uuid, ImageDimensions $image_dimensions,?string $photo_collection_id): string
     {
         $this->readPhotos();
-        $photo_retrival_service = new PhotoRetrivalService($this->photo_path, $this->image_cache_path);
+        $photo_retrival_service = new PhotoRetrivalService($this->photo_path, $this->photo_cache_path);
 
         return $photo_retrival_service->getPhotoPath($this->linux_file_map[$photo_uuid], $image_dimensions);
     }
@@ -316,16 +316,16 @@ class SimpleLinuxStorage implements PhotoCentralStorage
         ImageDimensions $image_dimensions,
         ?string $photo_collection_id
     ): string {
-        return '';
+        return $this->photo_cache_path . $image_dimensions->getId() . DIRECTORY_SEPARATOR . $photo_uuid . ".jpg"; // TODO : Could this be handled better?
     }
 
-    public function setPhotoCache(string $photo_cache_path): void
+    public function setPhotoCache(?string $photo_cache_path): void
     {
-        // TODO: Implement setPhotoCache() method.
+        $this->photo_cache_path = $photo_cache_path;
     }
 
-    public function getPhotoCache(): string
+    public function getPhotoCache(): ?string
     {
-        return '';
+        return $this->photo_cache_path;
     }
 }

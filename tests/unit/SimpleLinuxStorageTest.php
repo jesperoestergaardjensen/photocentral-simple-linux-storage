@@ -128,7 +128,9 @@ class SimpleLinuxStorageTest extends TestCase
                 new CreatedTimestampRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2021 00:00:00')),
                 new PhotoCollectionIdFilter([SimpleLinuxStorage::PHOTO_COLLECTION_UUID]),
             ],
-            null,
+            [
+                new SortByCreatedTimestamp(BasicSorting::DESC)
+            ],
             25
         );
 

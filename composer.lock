@@ -87,12 +87,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/photocentral-storage.git",
-                "reference": "61b3a04f796b49523cdf0037630e9c5d1f628106"
+                "reference": "ea0771ab20b8ba2ec41290d26a3089db9fe996cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/61b3a04f796b49523cdf0037630e9c5d1f628106",
-                "reference": "61b3a04f796b49523cdf0037630e9c5d1f628106",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/ea0771ab20b8ba2ec41290d26a3089db9fe996cc",
+                "reference": "ea0771ab20b8ba2ec41290d26a3089db9fe996cc",
                 "shasum": ""
             },
             "require": {
@@ -120,7 +120,7 @@
                 "issues": "https://github.com/jesperoestergaardjensen/photocentral-storage/issues",
                 "source": "https://github.com/jesperoestergaardjensen/photocentral-storage/tree/main"
             },
-            "time": "2022-01-21T23:45:15+00:00"
+            "time": "2022-01-22T08:59:01+00:00"
         }
     ],
     "packages-dev": [
@@ -656,12 +656,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "7b238df06d528068fc1715542e8099503f077efe"
+                "reference": "7ec58cf97d4ae1322f76fa1723ed5888df37b237"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/7b238df06d528068fc1715542e8099503f077efe",
-                "reference": "7b238df06d528068fc1715542e8099503f077efe",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/7ec58cf97d4ae1322f76fa1723ed5888df37b237",
+                "reference": "7ec58cf97d4ae1322f76fa1723ed5888df37b237",
                 "shasum": ""
             },
             "require": {
@@ -725,7 +725,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-09T07:36:03+00:00"
+            "time": "2022-01-22T06:25:32+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -974,12 +974,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "93d4bf4c37aec6384bb9e5d390d9049a463a7256"
+                "reference": "5ec777efa4d750f175b83df18c0f16471dc02ac3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/93d4bf4c37aec6384bb9e5d390d9049a463a7256",
-                "reference": "93d4bf4c37aec6384bb9e5d390d9049a463a7256",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5ec777efa4d750f175b83df18c0f16471dc02ac3",
+                "reference": "5ec777efa4d750f175b83df18c0f16471dc02ac3",
                 "shasum": ""
             },
             "require": {
@@ -1069,7 +1069,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-21T05:54:47+00:00"
+            "time": "2022-01-22T06:24:20+00:00"
         },
         {
             "name": "sebastian/cli-parser",
