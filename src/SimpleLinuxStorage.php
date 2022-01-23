@@ -314,9 +314,9 @@ class SimpleLinuxStorage implements PhotoCentralStorage
     public function getPathOrUrlToCachedPhoto(
         string $photo_uuid,
         ImageDimensions $image_dimensions,
-        ?string $photo_collection_id
+        string $photo_collection_id
     ): string {
-        return $this->photo_cache_path . $image_dimensions->getId() . DIRECTORY_SEPARATOR . $photo_uuid . ".jpg"; // TODO : Could this be handled better?
+        return $this->photo_cache_path . $photo_collection_id . DIRECTORY_SEPARATOR. $image_dimensions->getId() . DIRECTORY_SEPARATOR . $photo_uuid . ".jpg"; // TODO : Could this be handled better?
     }
 
     public function setPhotoCache(?string $photo_cache_path): void
