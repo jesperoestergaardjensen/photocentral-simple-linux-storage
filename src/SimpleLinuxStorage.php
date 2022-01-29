@@ -22,6 +22,7 @@ use PhotoCentralStorage\Model\PhotoSorting\BasicSorting;
 use PhotoCentralStorage\Model\PhotoSorting\PhotoSorting;
 use PhotoCentralStorage\Model\PhotoSorting\SortByAddedTimestamp;
 use PhotoCentralStorage\Model\PhotoSorting\SortByCreatedTimestamp;
+use PhotoCentralStorage\Model\PhotoSorting\SortByPhotoDateTime;
 use PhotoCentralStorage\Photo;
 use PhotoCentralStorage\PhotoCollection;
 use PhotoCentralStorage\PhotoCentralStorage;
@@ -78,7 +79,7 @@ class SimpleLinuxStorage implements PhotoCentralStorage
         $this->readPhotos();
         $photo_list = $this->photo_map;
 
-        if ($photo_filters !== null) {
+        if ($photo_filters !== null && count($photo_filters) > 0) {
             $photo_list = $this->filterPhotoList($photo_filters);
         }
 
@@ -148,7 +149,7 @@ class SimpleLinuxStorage implements PhotoCentralStorage
     private function sortPhotoList(PhotoSorting $photo_sorting, array $photo_list): array
     {
         // TODO : This is not SOLID enough
-        if ($photo_sorting instanceof SortByCreatedTimestamp) {
+        if ($photo_sorting instanceof SortByCreatedTimestamp) { // This sorting does not make sense anymore
             if ($photo_sorting->getDirection() === BasicSorting::ASC) {
                 uasort($photo_list, fn($a, $b) => ($a->getExifDateTime() ?? $a->getFallbackDateTime()) > ($b->getExifDateTime() ?? $b->getFallbackDateTime()));
             } else {
@@ -159,6 +160,12 @@ class SimpleLinuxStorage implements PhotoCentralStorage
                 uasort($photo_list, fn($a, $b) => ($a->getPhotoAddedDateTime()) > ($b->getPhotoAddedDateTime()));
             } else {
                 uasort($photo_list, fn($a, $b) => ($a->getPhotoAddedDateTime()) < ($b->getPhotoAddedDateTime()));
+            }
+        } else if ($photo_sorting instanceof SortByPhotoDateTime) {
+            if ($photo_sorting->getDirection() === BasicSorting::ASC) {
+                uasort($photo_list, fn($a, $b) => ($a->getPhotoDateTime()) > ($b->getPhotoDateTime()));
+            } else {
+                uasort($photo_list, fn($a, $b) => ($a->getPhotoDateTime()) < ($b->getPhotoDateTime()));
             }
         }
 
