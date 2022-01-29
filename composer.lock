@@ -87,12 +87,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/photocentral-storage.git",
-                "reference": "58dc5c10447eeddcb0397cdab0d6413c3abc4443"
+                "reference": "6b1b0c835d2e074b77ad1a6bd0492615884b47df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/58dc5c10447eeddcb0397cdab0d6413c3abc4443",
-                "reference": "58dc5c10447eeddcb0397cdab0d6413c3abc4443",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/6b1b0c835d2e074b77ad1a6bd0492615884b47df",
+                "reference": "6b1b0c835d2e074b77ad1a6bd0492615884b47df",
                 "shasum": ""
             },
             "require": {
@@ -120,7 +120,7 @@
                 "issues": "https://github.com/jesperoestergaardjensen/photocentral-storage/issues",
                 "source": "https://github.com/jesperoestergaardjensen/photocentral-storage/tree/main"
             },
-            "time": "2022-01-23T21:17:53+00:00"
+            "time": "2022-01-29T15:03:36+00:00"
         }
     ],
     "packages-dev": [

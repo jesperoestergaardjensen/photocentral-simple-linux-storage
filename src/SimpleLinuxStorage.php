@@ -69,7 +69,6 @@ class SimpleLinuxStorage implements PhotoCentralStorage
         return $search_result_list;
     }
 
-    // TODO : Make SimpleLinuxStorage do not respect multple sortings yet !!!
     public function listPhotos(
         array $photo_filters = null,
         array $photo_sorting_parameters = null,
@@ -84,7 +83,7 @@ class SimpleLinuxStorage implements PhotoCentralStorage
         }
 
         if ($photo_sorting_parameters !== null) {
-            $photo_list = $this->sortPhotoList($photo_sorting_parameters[0], $photo_list);
+            $photo_list = $this->sortPhotoList($photo_sorting_parameters, $photo_list);
         }
 
         return array_slice($photo_list, 0, $limit, true);
@@ -141,32 +140,15 @@ class SimpleLinuxStorage implements PhotoCentralStorage
     }
 
     /**
-     * @param PhotoSorting $photo_sorting
-     * @param Photo[]      $photo_list
+     * @param PhotoSorting[] $photo_sorting_parameters
+     * @param Photo[]         $photo_list
      *
-     * @return Photo[]
+     * @return array
      */
-    private function sortPhotoList(PhotoSorting $photo_sorting, array $photo_list): array
+    private function sortPhotoList(array $photo_sorting_parameters, array $photo_list): array
     {
-        // TODO : This is not SOLID enough
-        if ($photo_sorting instanceof SortByCreatedTimestamp) { // This sorting does not make sense anymore
-            if ($photo_sorting->getDirection() === BasicSorting::ASC) {
-                uasort($photo_list, fn($a, $b) => ($a->getExifDateTime() ?? $a->getFallbackDateTime()) > ($b->getExifDateTime() ?? $b->getFallbackDateTime()));
-            } else {
-                uasort($photo_list, fn($a, $b) => ($a->getExifDateTime() ?? $a->getFallbackDateTime()) < ($b->getExifDateTime() ?? $b->getFallbackDateTime()));
-            }
-        } else if ($photo_sorting instanceof SortByAddedTimestamp) {
-            if ($photo_sorting->getDirection() === BasicSorting::ASC) {
-                uasort($photo_list, fn($a, $b) => ($a->getPhotoAddedDateTime()) > ($b->getPhotoAddedDateTime()));
-            } else {
-                uasort($photo_list, fn($a, $b) => ($a->getPhotoAddedDateTime()) < ($b->getPhotoAddedDateTime()));
-            }
-        } else if ($photo_sorting instanceof SortByPhotoDateTime) {
-            if ($photo_sorting->getDirection() === BasicSorting::ASC) {
-                uasort($photo_list, fn($a, $b) => ($a->getPhotoDateTime()) > ($b->getPhotoDateTime()));
-            } else {
-                uasort($photo_list, fn($a, $b) => ($a->getPhotoDateTime()) < ($b->getPhotoDateTime()));
-            }
+        foreach ($photo_sorting_parameters as $photo_sorting_parameter) {
+            $photo_list = $photo_sorting_parameter->sort($photo_list);
         }
 
         return $photo_list;
