@@ -18,6 +18,9 @@ use PhotoCentralStorage\Model\PhotoFilter\PhotoCollectionIdFilter;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoFilter;
 use PhotoCentralStorage\Model\PhotoFilter\CreatedTimestampRangeFilter;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoUuidFilter;
+use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityDay;
+use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityMonth;
+use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityYear;
 use PhotoCentralStorage\Model\PhotoSorting\BasicSorting;
 use PhotoCentralStorage\Model\PhotoSorting\PhotoSorting;
 use PhotoCentralStorage\Model\PhotoSorting\SortByAddedTimestamp;
@@ -316,5 +319,20 @@ class SimpleLinuxStorage implements PhotoCentralStorage
     public function getPhotoCache(): ?string
     {
         return $this->photo_cache_path;
+    }
+
+    public function listPhotoQuantityByYear(?array $photo_collection_id_list): array
+    {
+        return [];
+    }
+
+    public function listPhotoQuantityByMonth(int $year, ?array $photo_collection_id_list): array
+    {
+        return [];
+    }
+
+    public function listPhotoQuantityByDay(int $month, int $year, ?array $photo_collection_id_list): array
+    {
+        return [];
     }
 }
