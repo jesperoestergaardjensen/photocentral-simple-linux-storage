@@ -8,12 +8,14 @@ use PhotoCentralStorage\Exception\PhotoCentralStorageException;
 use PhotoCentralStorage\Model\ImageDimensions;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoCollectionIdFilter;
 use PhotoCentralStorage\Model\PhotoFilter\CreatedTimestampRangeFilter;
+use PhotoCentralStorage\Model\PhotoFilter\PhotoDateTimeRangeFilter;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoUuidFilter;
 use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityDay;
 use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityMonth;
 use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityYear;
 use PhotoCentralStorage\Model\PhotoSorting\BasicSorting;
 use PhotoCentralStorage\Model\PhotoSorting\SortByCreatedTimestamp;
+use PhotoCentralStorage\Model\PhotoSorting\SortByPhotoDateTime;
 use PHPUnit\Framework\TestCase;
 
 class SimpleLinuxStorageTest extends TestCase
@@ -82,19 +84,6 @@ class SimpleLinuxStorageTest extends TestCase
         $this->assertCount(11, $photo_list, '11 photos should be listed');
     }
 
-    public function testListPhotosCaseB()
-    {
-        // Test the sorting
-        $photo_list = $this->simple_linux_storage->listPhotos(
-            null,
-            [new SortByCreatedTimestamp(BasicSorting::DESC)],
-            25
-        );
-
-        // TODO test that it is the correct photos returned
-        $this->assertCount(11, $photo_list, '11 photos should be listed');
-    }
-
     public function testListPhotosCaseC()
     {
         // Test filter that limits to time period
@@ -115,7 +104,7 @@ class SimpleLinuxStorageTest extends TestCase
         // Test filter that limits to time period
         $photo_list = $this->simple_linux_storage->listPhotos(
             [
-                new CreatedTimestampRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2021 00:00:00')),
+                new PhotoDateTimeRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2021 00:00:00')),
                 new PhotoCollectionIdFilter(['do-not-exist']),
             ],
             null,
@@ -128,11 +117,11 @@ class SimpleLinuxStorageTest extends TestCase
         // Test filter that limits to time period
         $photo_list = $this->simple_linux_storage->listPhotos(
             [
-                new CreatedTimestampRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2021 00:00:00')),
+                new PhotoDateTimeRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2021 00:00:00')),
                 new PhotoCollectionIdFilter([SimpleLinuxStorage::PHOTO_COLLECTION_UUID]),
             ],
             [
-                new SortByCreatedTimestamp(BasicSorting::DESC)
+                new SortByPhotoDateTime(BasicSorting::DESC)
             ],
             25
         );

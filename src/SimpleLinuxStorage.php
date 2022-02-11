@@ -15,6 +15,7 @@ use PhotoCentralStorage\Factory\ExifDataFactory;
 use PhotoCentralStorage\Model\ExifData;
 use PhotoCentralStorage\Model\ImageDimensions;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoCollectionIdFilter;
+use PhotoCentralStorage\Model\PhotoFilter\PhotoDateTimeRangeFilter;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoFilter;
 use PhotoCentralStorage\Model\PhotoFilter\CreatedTimestampRangeFilter;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoUuidFilter;
@@ -114,6 +115,17 @@ class SimpleLinuxStorage implements PhotoCentralStorage
 
                 if ($photo_filter instanceof CreatedTimestampRangeFilter) {
                     if ($photo->getExifDateTime() >= $photo_filter->getStartTimestamp() && $photo->getExifDateTime() <= $photo_filter->getEndTimestamp()) {
+                        $photo_list[$photo_uuid] = $photo;
+                    } else {
+                        if (array_key_exists($photo_uuid, $photo_list)) {
+                            unset($photo_list[$photo_uuid]);
+                        }
+                        break;
+                    }
+                }
+
+                if ($photo_filter instanceof PhotoDateTimeRangeFilter) {
+                    if ($photo->getPhotoDateTime() >= $photo_filter->getStartTimestamp() && $photo->getPhotoDateTime() <= $photo_filter->getEndTimestamp()) {
                         $photo_list[$photo_uuid] = $photo;
                     } else {
                         if (array_key_exists($photo_uuid, $photo_list)) {

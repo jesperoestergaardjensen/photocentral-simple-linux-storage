@@ -87,12 +87,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/photocentral-storage.git",
-                "reference": "34a5c30ab35d3a8b23558c2ca4f2a12a80202a16"
+                "reference": "662a09c20ad017277f865def36a0922957af0f25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/34a5c30ab35d3a8b23558c2ca4f2a12a80202a16",
-                "reference": "34a5c30ab35d3a8b23558c2ca4f2a12a80202a16",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/662a09c20ad017277f865def36a0922957af0f25",
+                "reference": "662a09c20ad017277f865def36a0922957af0f25",
                 "shasum": ""
             },
             "require": {
@@ -102,6 +102,7 @@
             },
             "require-dev": {
                 "jesperoestergaardjensen/exif-samples": "1.0.0",
+                "jesperoestergaardjensen/photocentral-simple-linux-storage": "dev-main",
                 "phpunit/phpunit": "^9.5"
             },
             "default-branch": true,
@@ -120,7 +121,7 @@
                 "issues": "https://github.com/jesperoestergaardjensen/photocentral-storage/issues",
                 "source": "https://github.com/jesperoestergaardjensen/photocentral-storage/tree/main"
             },
-            "time": "2022-01-30T21:22:21+00:00"
+            "time": "2022-02-11T20:19:47+00:00"
         }
     ],
     "packages-dev": [
@@ -314,12 +315,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/manifest.git",
-                "reference": "97803eca37d319dfa7826cc2437fc020857acb53"
+                "reference": "f2de92260682e2db0f5895cda0b97b2dbb732d67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/manifest/zipball/97803eca37d319dfa7826cc2437fc020857acb53",
-                "reference": "97803eca37d319dfa7826cc2437fc020857acb53",
+                "url": "https://api.github.com/repos/phar-io/manifest/zipball/f2de92260682e2db0f5895cda0b97b2dbb732d67",
+                "reference": "f2de92260682e2db0f5895cda0b97b2dbb732d67",
                 "shasum": ""
             },
             "require": {
@@ -365,9 +366,9 @@
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
             "support": {
                 "issues": "https://github.com/phar-io/manifest/issues",
-                "source": "https://github.com/phar-io/manifest/tree/2.0.3"
+                "source": "https://github.com/phar-io/manifest/tree/master"
             },
-            "time": "2021-07-20T11:28:43+00:00"
+            "time": "2022-02-10T19:52:33+00:00"
         },
         {
             "name": "phar-io/version",
@@ -656,12 +657,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "be9a612b39300ee187520da12013f02dd3cc0461"
+                "reference": "72841b24ec77b67c7328b4796b8238c34c4d2825"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/be9a612b39300ee187520da12013f02dd3cc0461",
-                "reference": "be9a612b39300ee187520da12013f02dd3cc0461",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/72841b24ec77b67c7328b4796b8238c34c4d2825",
+                "reference": "72841b24ec77b67c7328b4796b8238c34c4d2825",
                 "shasum": ""
             },
             "require": {
@@ -725,7 +726,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-08T13:41:07+00:00"
+            "time": "2022-02-11T07:57:53+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -733,12 +734,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
-                "reference": "cf1c2e7c203ac650e352f4cc675a7021e7d1b3cf"
+                "reference": "38b24367e1b340aa78b96d7cab042942d917bb84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/cf1c2e7c203ac650e352f4cc675a7021e7d1b3cf",
-                "reference": "cf1c2e7c203ac650e352f4cc675a7021e7d1b3cf",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/38b24367e1b340aa78b96d7cab042942d917bb84",
+                "reference": "38b24367e1b340aa78b96d7cab042942d917bb84",
                 "shasum": ""
             },
             "require": {
@@ -785,7 +786,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-02T12:48:52+00:00"
+            "time": "2022-02-11T16:23:04+00:00"
         },
         {
             "name": "phpunit/php-invoker",
