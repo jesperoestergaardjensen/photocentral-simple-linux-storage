@@ -21,11 +21,7 @@ use PhotoCentralStorage\Model\PhotoFilter\PhotoUuidFilter;
 use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityDay;
 use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityMonth;
 use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityYear;
-use PhotoCentralStorage\Model\PhotoSorting\BasicSorting;
 use PhotoCentralStorage\Model\PhotoSorting\PhotoSorting;
-use PhotoCentralStorage\Model\PhotoSorting\SortByAddedTimestamp;
-use PhotoCentralStorage\Model\PhotoSorting\SortByCreatedTimestamp;
-use PhotoCentralStorage\Model\PhotoSorting\SortByPhotoDateTime;
 use PhotoCentralStorage\Photo;
 use PhotoCentralStorage\PhotoCollection;
 use PhotoCentralStorage\PhotoCentralStorage;
@@ -323,16 +319,65 @@ class SimpleLinuxStorage implements PhotoCentralStorage
 
     public function listPhotoQuantityByYear(?array $photo_collection_id_list): array
     {
-        return [];
+        $this->readPhotos();
+        $year_map = [];
+        foreach ($this->photo_map as $photo) {
+            $year_index = date("Y", $photo->getPhotoDateTime());
+            $year_map[$year_index] = isset($year_map[$year_index]) ? $year_map[$year_index]+1 : 1;
+        }
+
+        arsort($year_map);
+
+        $list_photo_quantity_per_year_list = [];
+        foreach ($year_map as $year => $count) {
+            $list_photo_quantity_per_year_list[] = new PhotoQuantityYear($year, $year, $count);
+        }
+
+        return $list_photo_quantity_per_year_list;
     }
 
     public function listPhotoQuantityByMonth(int $year, ?array $photo_collection_id_list): array
     {
-        return [];
+        $this->readPhotos();
+        $month_map = [];
+        foreach ($this->photo_map as $photo) {
+            $year_index = (int)date("Y", $photo->getPhotoDateTime());
+            if ($year === $year_index) {
+                $month_index = date("m", $photo->getPhotoDateTime());
+                $month_map[$month_index] = isset($month_map[$month_index]) ? $month_map[$month_index]+1 : 1;
+            }
+        }
+
+        arsort($month_map);
+
+        $list_photo_quantity_per_month_list = [];
+        foreach ($month_map as $month => $count) {
+            $list_photo_quantity_per_month_list[] = new PhotoQuantityMonth($month, $month, $count);
+        }
+
+        return $list_photo_quantity_per_month_list;
     }
 
     public function listPhotoQuantityByDay(int $month, int $year, ?array $photo_collection_id_list): array
     {
-        return [];
+        $this->readPhotos();
+        $day_map = [];
+        foreach ($this->photo_map as $photo) {
+            $year_index = (int)date("Y", $photo->getPhotoDateTime());
+            $month_index = (int)date("m", $photo->getPhotoDateTime());
+            if ($year === $year_index && $month === $month_index) {
+                $day_index = date("d", $photo->getPhotoDateTime());
+                $day_map[$day_index] = isset($day_map[$day_index]) ? $day_map[$day_index]+1 : 1;
+            }
+        }
+
+        arsort($day_map);
+
+        $list_photo_quantity_per_day_list = [];
+        foreach ($day_map as $day => $count) {
+            $list_photo_quantity_per_day_list[] = new PhotoQuantityDay($day, $day, $count);
+        }
+
+        return $list_photo_quantity_per_day_list;
     }
 }

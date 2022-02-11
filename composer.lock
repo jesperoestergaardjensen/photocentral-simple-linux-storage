@@ -87,12 +87,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/photocentral-storage.git",
-                "reference": "a45b7ca2a4e6192768cd2a83bb751bb38e1fe550"
+                "reference": "34a5c30ab35d3a8b23558c2ca4f2a12a80202a16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/a45b7ca2a4e6192768cd2a83bb751bb38e1fe550",
-                "reference": "a45b7ca2a4e6192768cd2a83bb751bb38e1fe550",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/34a5c30ab35d3a8b23558c2ca4f2a12a80202a16",
+                "reference": "34a5c30ab35d3a8b23558c2ca4f2a12a80202a16",
                 "shasum": ""
             },
             "require": {
@@ -120,7 +120,7 @@
                 "issues": "https://github.com/jesperoestergaardjensen/photocentral-storage/issues",
                 "source": "https://github.com/jesperoestergaardjensen/photocentral-storage/tree/main"
             },
-            "time": "2022-01-30T12:06:11+00:00"
+            "time": "2022-01-30T21:22:21+00:00"
         }
     ],
     "packages-dev": [
@@ -221,12 +221,12 @@
             "default-branch": true,
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "DeepCopy\\": "src/DeepCopy/"
-                },
                 "files": [
                     "src/DeepCopy/deep_copy.php"
-                ]
+                ],
+                "psr-4": {
+                    "DeepCopy\\": "src/DeepCopy/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -371,16 +371,16 @@
         },
         {
             "name": "phar-io/version",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/version.git",
-                "reference": "bae7c545bef187884426f042434e561ab1ddb182"
+                "reference": "15a90844ad40f127afd244c0cad228de2a80052a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/version/zipball/bae7c545bef187884426f042434e561ab1ddb182",
-                "reference": "bae7c545bef187884426f042434e561ab1ddb182",
+                "url": "https://api.github.com/repos/phar-io/version/zipball/15a90844ad40f127afd244c0cad228de2a80052a",
+                "reference": "15a90844ad40f127afd244c0cad228de2a80052a",
                 "shasum": ""
             },
             "require": {
@@ -416,9 +416,9 @@
             "description": "Library for handling version information and constraints",
             "support": {
                 "issues": "https://github.com/phar-io/version/issues",
-                "source": "https://github.com/phar-io/version/tree/3.1.0"
+                "source": "https://github.com/phar-io/version/tree/3.1.1"
             },
-            "time": "2021-02-23T14:00:09+00:00"
+            "time": "2022-02-07T21:56:48+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -656,12 +656,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "7ec58cf97d4ae1322f76fa1723ed5888df37b237"
+                "reference": "be9a612b39300ee187520da12013f02dd3cc0461"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/7ec58cf97d4ae1322f76fa1723ed5888df37b237",
-                "reference": "7ec58cf97d4ae1322f76fa1723ed5888df37b237",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/be9a612b39300ee187520da12013f02dd3cc0461",
+                "reference": "be9a612b39300ee187520da12013f02dd3cc0461",
                 "shasum": ""
             },
             "require": {
@@ -725,7 +725,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-22T06:25:32+00:00"
+            "time": "2022-02-08T13:41:07+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -974,12 +974,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "988e84c197d74cfe5252a405655dd72a85356da3"
+                "reference": "42839036a3392d124e12dea4c7b76fbf818123e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/988e84c197d74cfe5252a405655dd72a85356da3",
-                "reference": "988e84c197d74cfe5252a405655dd72a85356da3",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/42839036a3392d124e12dea4c7b76fbf818123e0",
+                "reference": "42839036a3392d124e12dea4c7b76fbf818123e0",
                 "shasum": ""
             },
             "require": {
@@ -1030,11 +1030,11 @@
                 }
             },
             "autoload": {
-                "classmap": [
-                    "src/"
-                ],
                 "files": [
                     "src/Framework/Assert/Functions.php"
+                ],
+                "classmap": [
+                    "src/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1069,7 +1069,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-27T06:17:03+00:00"
+            "time": "2022-02-10T14:55:22+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -1577,16 +1577,16 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "5.0.3",
+            "version": "5.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49"
+                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/23bd5951f7ff26f12d4e3242864df3e08dec4e49",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
+                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
                 "shasum": ""
             },
             "require": {
@@ -1629,7 +1629,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.3"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0"
             },
             "funding": [
                 {
@@ -1637,7 +1637,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-11T13:31:12+00:00"
+            "time": "2022-02-10T07:01:19+00:00"
         },
         {
             "name": "sebastian/lines-of-code",

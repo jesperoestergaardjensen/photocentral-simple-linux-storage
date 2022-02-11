@@ -9,6 +9,9 @@ use PhotoCentralStorage\Model\ImageDimensions;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoCollectionIdFilter;
 use PhotoCentralStorage\Model\PhotoFilter\CreatedTimestampRangeFilter;
 use PhotoCentralStorage\Model\PhotoFilter\PhotoUuidFilter;
+use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityDay;
+use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityMonth;
+use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityYear;
 use PhotoCentralStorage\Model\PhotoSorting\BasicSorting;
 use PhotoCentralStorage\Model\PhotoSorting\SortByCreatedTimestamp;
 use PHPUnit\Framework\TestCase;
@@ -76,7 +79,7 @@ class SimpleLinuxStorageTest extends TestCase
             25
         );
         // TODO test that it is the correct photos returned
-        $this->assertCount(9, $photo_list, '9 photos should be listed');
+        $this->assertCount(11, $photo_list, '11 photos should be listed');
     }
 
     public function testListPhotosCaseB()
@@ -89,7 +92,7 @@ class SimpleLinuxStorageTest extends TestCase
         );
 
         // TODO test that it is the correct photos returned
-        $this->assertCount(9, $photo_list, '9 photos should be listed');
+        $this->assertCount(11, $photo_list, '11 photos should be listed');
     }
 
     public function testListPhotosCaseC()
@@ -194,6 +197,40 @@ class SimpleLinuxStorageTest extends TestCase
         // Clean up after test
         unlink($photo_path);
         rmdir($this->getImageCacheTestFolder() . ImageDimensions::THUMB_ID . DIRECTORY_SEPARATOR);
+    }
+
+    public function testlistPhotoQuantityByYear()
+    {
+        $expected = [
+            new PhotoQuantityYear('2021',2021, 7),
+            new PhotoQuantityYear('2020',2020, 3),
+            new PhotoQuantityYear('2013',2013, 1),
+        ];
+
+        $actual = $this->simple_linux_storage->listPhotoQuantityByYear([SimpleLinuxStorage::PHOTO_COLLECTION_UUID]);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testlistPhotoQuantityByMonth()
+    {
+        $expected = [
+            new PhotoQuantityMonth('09',9, 2),
+            new PhotoQuantityMonth('02',2, 1),
+        ];
+
+        $actual = $this->simple_linux_storage->listPhotoQuantityByMonth(2020, [SimpleLinuxStorage::PHOTO_COLLECTION_UUID]);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testlistPhotoQuantityByDay()
+    {
+        $expected = [
+            new PhotoQuantityDay('06',6, 1),
+            new PhotoQuantityDay('18',18, 1),
+        ];
+
+        $actual = $this->simple_linux_storage->listPhotoQuantityByDay(9, 2020, [SimpleLinuxStorage::PHOTO_COLLECTION_UUID]);
+        $this->assertEquals($expected, $actual);
     }
 }
 
