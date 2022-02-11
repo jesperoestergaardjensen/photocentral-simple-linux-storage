@@ -322,7 +322,7 @@ class SimpleLinuxStorage implements PhotoCentralStorage
         $this->readPhotos();
         $year_map = [];
         foreach ($this->photo_map as $photo) {
-            $year_index = date("Y", $photo->getPhotoDateTime());
+            $year_index = (int)date("Y", $photo->getPhotoDateTime());
             $year_map[$year_index] = isset($year_map[$year_index]) ? $year_map[$year_index]+1 : 1;
         }
 
@@ -343,16 +343,16 @@ class SimpleLinuxStorage implements PhotoCentralStorage
         foreach ($this->photo_map as $photo) {
             $year_index = (int)date("Y", $photo->getPhotoDateTime());
             if ($year === $year_index) {
-                $month_index = date("m", $photo->getPhotoDateTime());
+                $month_index = (int)date("m", $photo->getPhotoDateTime());
                 $month_map[$month_index] = isset($month_map[$month_index]) ? $month_map[$month_index]+1 : 1;
             }
         }
 
-        arsort($month_map);
+        asort($month_map);
 
         $list_photo_quantity_per_month_list = [];
         foreach ($month_map as $month => $count) {
-            $list_photo_quantity_per_month_list[] = new PhotoQuantityMonth($month, $month, $count);
+            $list_photo_quantity_per_month_list[] = new PhotoQuantityMonth(str_pad($month, 2, '0', STR_PAD_LEFT), $month, $count);
         }
 
         return $list_photo_quantity_per_month_list;
@@ -366,16 +366,16 @@ class SimpleLinuxStorage implements PhotoCentralStorage
             $year_index = (int)date("Y", $photo->getPhotoDateTime());
             $month_index = (int)date("m", $photo->getPhotoDateTime());
             if ($year === $year_index && $month === $month_index) {
-                $day_index = date("d", $photo->getPhotoDateTime());
+                $day_index = (int)date("d", $photo->getPhotoDateTime());
                 $day_map[$day_index] = isset($day_map[$day_index]) ? $day_map[$day_index]+1 : 1;
             }
         }
 
-        arsort($day_map);
+        asort($day_map);
 
         $list_photo_quantity_per_day_list = [];
         foreach ($day_map as $day => $count) {
-            $list_photo_quantity_per_day_list[] = new PhotoQuantityDay($day, $day, $count);
+            $list_photo_quantity_per_day_list[] = new PhotoQuantityDay(str_pad($day, 2, '0', STR_PAD_LEFT), $day, $count);
         }
 
         return $list_photo_quantity_per_day_list;

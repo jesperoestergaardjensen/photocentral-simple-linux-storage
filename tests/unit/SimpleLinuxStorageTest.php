@@ -214,8 +214,8 @@ class SimpleLinuxStorageTest extends TestCase
     public function testlistPhotoQuantityByMonth()
     {
         $expected = [
-            new PhotoQuantityMonth('09',9, 2),
             new PhotoQuantityMonth('02',2, 1),
+            new PhotoQuantityMonth('09',9, 2),
         ];
 
         $actual = $this->simple_linux_storage->listPhotoQuantityByMonth(2020, [SimpleLinuxStorage::PHOTO_COLLECTION_UUID]);
