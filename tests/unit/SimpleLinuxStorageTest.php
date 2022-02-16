@@ -49,7 +49,7 @@ class SimpleLinuxStorageTest extends TestCase
         $photo_collection_list = $this->simple_linux_storage->listPhotoCollections(2);
 
         $this->assertCount(1, $photo_collection_list, 'One item in the list is expected');
-        $this->assertEquals(SimpleLinuxStorage::PHOTO_COLLECTION_UUID, $photo_collection_list[0]->getId(), 'id is expected to be ' . SimpleLinuxStorage::PHOTO_COLLECTION_UUID);
+        $this->assertEquals($this->simple_linux_storage->getPhotoCollectionUuid(), $photo_collection_list[0]->getId(), 'id is expected to be ' . $this->simple_linux_storage->getPhotoCollectionUuid());
         $this->assertEquals('Photo folder', $photo_collection_list[0]->getName(),
             'name is expected to be "Photo folder"');
         $photo_folder = $this->getPhotosTestFolder();
@@ -62,14 +62,14 @@ class SimpleLinuxStorageTest extends TestCase
 
         $photo_uuid = PhotoUuidFactory::generatePhotoUuid($test_photo_file);
 
-        $photo = $this->simple_linux_storage->getPhoto($photo_uuid, SimpleLinuxStorage::PHOTO_COLLECTION_UUID);
+        $photo = $this->simple_linux_storage->getPhoto($photo_uuid, $this->simple_linux_storage->getPhotoCollectionUuid());
 
         $this->assertEquals('ASUS', $photo->getCameraBrand());
         $this->assertEquals(386, $photo->getHeight());
         $this->assertEquals(686, $photo->getWidth());
 
         $this->expectException(PhotoCentralStorageException::class);
-        $this->simple_linux_storage->getPhoto('non-existing-uuid', SimpleLinuxStorage::PHOTO_COLLECTION_UUID);
+        $this->simple_linux_storage->getPhoto('non-existing-uuid', $this->simple_linux_storage->getPhotoCollectionUuid());
     }
 
     public function testListPhotosCaseA()
@@ -118,7 +118,7 @@ class SimpleLinuxStorageTest extends TestCase
         $photo_list = $this->simple_linux_storage->listPhotos(
             [
                 new PhotoDateTimeRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2021 00:00:00')),
-                new PhotoCollectionIdFilter([SimpleLinuxStorage::PHOTO_COLLECTION_UUID]),
+                new PhotoCollectionIdFilter([$this->simple_linux_storage->getPhotoCollectionUuid()]),
             ],
             [
                 new SortByPhotoDateTime(BasicSorting::DESC)
@@ -152,10 +152,10 @@ class SimpleLinuxStorageTest extends TestCase
 
     public function testSearch()
     {
-        $search_result_list = $this->simple_linux_storage->searchPhotos('ball', [SimpleLinuxStorage::PHOTO_COLLECTION_UUID]);
+        $search_result_list = $this->simple_linux_storage->searchPhotos('ball', [$this->simple_linux_storage->getPhotoCollectionUuid()]);
         $this->assertCount(3, $search_result_list, 'three images should be found');
 
-        $search_result_list = $this->simple_linux_storage->searchPhotos('coffee', [SimpleLinuxStorage::PHOTO_COLLECTION_UUID]);
+        $search_result_list = $this->simple_linux_storage->searchPhotos('coffee', [$this->simple_linux_storage->getPhotoCollectionUuid()]);
         $this->assertCount(1, $search_result_list, 'one image should be found');
     }
 
@@ -196,7 +196,7 @@ class SimpleLinuxStorageTest extends TestCase
             new PhotoQuantityYear('2013',2013, 1),
         ];
 
-        $actual = $this->simple_linux_storage->listPhotoQuantityByYear([SimpleLinuxStorage::PHOTO_COLLECTION_UUID]);
+        $actual = $this->simple_linux_storage->listPhotoQuantityByYear([$this->simple_linux_storage->getPhotoCollectionUuid()]);
         $this->assertEquals($expected, $actual);
     }
 
@@ -207,7 +207,7 @@ class SimpleLinuxStorageTest extends TestCase
             new PhotoQuantityMonth('09',9, 2),
         ];
 
-        $actual = $this->simple_linux_storage->listPhotoQuantityByMonth(2020, [SimpleLinuxStorage::PHOTO_COLLECTION_UUID]);
+        $actual = $this->simple_linux_storage->listPhotoQuantityByMonth(2020, [$this->simple_linux_storage->getPhotoCollectionUuid()]);
         $this->assertEquals($expected, $actual);
     }
 
@@ -218,7 +218,7 @@ class SimpleLinuxStorageTest extends TestCase
             new PhotoQuantityDay('18',18, 1),
         ];
 
-        $actual = $this->simple_linux_storage->listPhotoQuantityByDay(9, 2020, [SimpleLinuxStorage::PHOTO_COLLECTION_UUID]);
+        $actual = $this->simple_linux_storage->listPhotoQuantityByDay(9, 2020, [$this->simple_linux_storage->getPhotoCollectionUuid()]);
         $this->assertEquals($expected, $actual);
     }
 }

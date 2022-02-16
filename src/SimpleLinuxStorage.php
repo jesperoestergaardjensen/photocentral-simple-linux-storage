@@ -27,28 +27,35 @@ use PhotoCentralStorage\Photo;
 use PhotoCentralStorage\PhotoCollection;
 use PhotoCentralStorage\PhotoCentralStorage;
 
+/**
+ * This is a simple inplementation of the PhotoCentralStorage interface
+ * Most info will be held in memory and is not excepted to scale well.
+ *
+ * Use this class to handle small amounts of photos or for testing purpose.
+ *
+ * Please notice. Only one photo collection is allowed
+ */
 class SimpleLinuxStorage implements PhotoCentralStorage
 {
-    public const PHOTO_COLLECTION_UUID = '427e8cdc-2275-4b54-942c-3295b2e300e2';
-    public const TRASH_FOLDER_NAME     = '.trash/';
+    private const DEFAULT_PHOTO_COLLECTION_UUID = '427e8cdc-2275-4b54-942c-3295b2e300e2';
+    public const TRASH_FOLDER_NAME             = '.trash/';
 
-    private string $photo_path;
-    private PhotoCollection $photo_collection;
     /**
      * @var null|LinuxFile[]
      */
     private ?array $linux_file_map = null;
-    /**
-     * @var null|Photo[]
-     */
+    private string $photo_path;
+    private string $photo_collection_uuid = self::DEFAULT_PHOTO_COLLECTION_UUID;
+    private PhotoCollection $photo_collection;
     private ?array $photo_map = null;
     private ?string $photo_cache_path;
 
     // TODO : SimpleLinuxStorage has to follow the interface allowing no cache path to be set - but no implementation have been made to handle this yet !!!
-    public function __construct(string $photo_path, ?string $photo_cache_path)
+    public function __construct(string $photo_path, ?string $photo_cache_path, string $photo_collection_uuid = self::DEFAULT_PHOTO_COLLECTION_UUID)
     {
         $this->photo_path = $photo_path;
-        $this->photo_collection = new PhotoCollection(self::PHOTO_COLLECTION_UUID, 'Photo folder', true,
+        $this->photo_collection_uuid = $photo_collection_uuid;
+        $this->photo_collection = new PhotoCollection($this->getPhotoCollectionUuid(), 'Photo folder', true,
             "Simple Linux Storage folder ($this->photo_path)", null);
         $this->photo_cache_path = $photo_cache_path;
     }
@@ -391,5 +398,15 @@ class SimpleLinuxStorage implements PhotoCentralStorage
         }
 
         return $list_photo_quantity_per_day_list;
+    }
+
+    public function getPhotoCollectionUuid(): string
+    {
+        return $this->photo_collection_uuid;
+    }
+
+    public static function getDefaultPhotoCollectionUuid(): string
+    {
+        return self::DEFAULT_PHOTO_COLLECTION_UUID;
     }
 }
