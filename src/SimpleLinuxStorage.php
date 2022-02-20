@@ -264,8 +264,12 @@ class SimpleLinuxStorage implements PhotoCentralStorage
      */
     private function buildDeletedLinuxFilesMap(): array
     {
-        $deleted_linux_file_map = [];
+        // If no trash folder exists then we have no files to undelete
+        if (file_exists($this->photo_path . self::TRASH_FOLDER_NAME) === false) {
+            return [];
+        }
 
+        $deleted_linux_file_map = [];
         $deleted_file_list = FolderHelper::listFilesRecursiveFromFolder($this->photo_path . self::TRASH_FOLDER_NAME,
             '.jpg');
 
