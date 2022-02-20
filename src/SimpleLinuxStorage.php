@@ -190,8 +190,8 @@ class SimpleLinuxStorage implements PhotoCentralStorage
     {
         $this->readPhotos();
 
-        if (isset($this->photo_map[$photo_uuid]) === false) {
-            throw new PhotoCentralStorageException("No photo could be found with the supplied uuid $photo_uuid");
+        if (isset($this->photo_map[$photo_uuid]) === false || $this->linux_file_map[$photo_uuid] === false) {
+            return false;
         }
 
         // Create trash folder
@@ -219,6 +219,10 @@ class SimpleLinuxStorage implements PhotoCentralStorage
     {
         // Build a list of deleted files
         $deleted_linux_file_map = $this->buildDeletedLinuxFilesMap();
+
+        if (isset($deleted_linux_file_map[$photo_uuid]) === false) {
+            return false;
+        }
 
         // Get the file that should be un-deleted
         $linux_file_to_undelete = $deleted_linux_file_map[$photo_uuid];
