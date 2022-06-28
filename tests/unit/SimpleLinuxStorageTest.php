@@ -27,7 +27,7 @@ class SimpleLinuxStorageTest extends TestCase
     private const TEST_PHOTO_FILE_NAME_1 = 'coffee-break.jpg';
     private const TEST_PHOTO_FILE_NAME_2 = 'sport/mtb/mountain-bike-g30008f9d7_1280.jpg';
 
-    private function getPhotosTestFolder(): string
+    private static function getPhotosTestFolder(): string
     {
         return dirname(__DIR__) . "/data/photos/";
     }
@@ -35,6 +35,38 @@ class SimpleLinuxStorageTest extends TestCase
     private function getImageCacheTestFolder(): string
     {
         return dirname(__DIR__) . "/data/image_cache/";
+    }
+
+    /**
+     * This method was introduced to control modified timestamp on Github
+     *
+     * @return void
+     */
+    private static function touchPhotoFiles(): void
+    {
+        // programming
+        touch(self::getPhotosTestFolder() . 'programming/binary-gdb73a1c75_640.jpg' , strtotime('13 nov 2021'));
+        touch(self::getPhotosTestFolder() . 'programming/code-g0590d5745_640.jpg' , strtotime('13 nov 2021'));
+        touch(self::getPhotosTestFolder() . 'programming/matrix-g3ebcd682d_640.jpg' , strtotime('13 nov 2021'));
+
+        // sport/basketball
+        touch(self::getPhotosTestFolder() . 'sport/basketball/backboard-g35bc4b0aa_640.jpg' , strtotime('13 nov 2021'));
+        touch(self::getPhotosTestFolder() . 'sport/basketball/basketball-gfe9880736_640.jpg' , strtotime('14 nov 2021'));
+        touch(self::getPhotosTestFolder() . 'sport/basketball/hobbies-g4fd8e4589_640.jpg' , strtotime('13 nov 2021'));
+
+        // sport/mtb
+        touch(self::getPhotosTestFolder() . 'sport/mtb/action-g2a0e8f510_1280.jpg' , strtotime('13 nov 2021'));
+        touch(self::getPhotosTestFolder() . 'sport/mtb/mountain-bike-g30008f9d7_1280.jpg' , strtotime('13 nov 2021'));
+
+        // /
+        touch(self::getPhotosTestFolder() . 'coffee-break.jpg' , strtotime('13 nov 2021'));
+        touch(self::getPhotosTestFolder() . 'door-g3faa009b2_1920.jpg' , strtotime('10 feb 2022'));
+        touch(self::getPhotosTestFolder() . 'porsche-911-gt2-g3e8cf2c44_1280.jpg' , strtotime('10 feb 2022'));
+    }
+
+    public static function setUpBeforeClass(): void
+    {
+        self::touchPhotoFiles();
     }
 
     public function setUp(): void
@@ -190,9 +222,9 @@ class SimpleLinuxStorageTest extends TestCase
     public function testlistPhotoQuantityByYear()
     {
         $expected = [
-            new PhotoQuantityYear('2022',2022, 6),
-            new PhotoQuantityYear('2021',2021, 1),
+            new PhotoQuantityYear('2021',2021, 7),
             new PhotoQuantityYear('2020',2020, 3),
+            new PhotoQuantityYear('2013',2013, 1),
         ];
 
         $actual = $this->simple_linux_storage->listPhotoQuantityByYear([$this->simple_linux_storage->getPhotoCollectionUuid()]);
