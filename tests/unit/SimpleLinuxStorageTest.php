@@ -14,7 +14,6 @@ use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityDay;
 use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityMonth;
 use PhotoCentralStorage\Model\PhotoQuantity\PhotoQuantityYear;
 use PhotoCentralStorage\Model\PhotoSorting\BasicSorting;
-use PhotoCentralStorage\Model\PhotoSorting\SortByCreatedTimestamp;
 use PhotoCentralStorage\Model\PhotoSorting\SortByPhotoDateTime;
 use PHPUnit\Framework\TestCase;
 
@@ -89,7 +88,7 @@ class SimpleLinuxStorageTest extends TestCase
         // Test filter that limits to time period
         $photo_list = $this->simple_linux_storage->listPhotos(
             [
-                new CreatedTimestampRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2021 00:00:00'))
+                new CreatedTimestampRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2022 00:00:00'))
             ],
             null,
             25
@@ -104,7 +103,7 @@ class SimpleLinuxStorageTest extends TestCase
         // Test filter that limits to time period
         $photo_list = $this->simple_linux_storage->listPhotos(
             [
-                new PhotoDateTimeRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2021 00:00:00')),
+                new PhotoDateTimeRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2022 00:00:00')),
                 new PhotoCollectionIdFilter(['do-not-exist']),
             ],
             null,
@@ -117,7 +116,7 @@ class SimpleLinuxStorageTest extends TestCase
         // Test filter that limits to time period
         $photo_list = $this->simple_linux_storage->listPhotos(
             [
-                new PhotoDateTimeRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2021 00:00:00')),
+                new PhotoDateTimeRangeFilter(strtotime('01-10-2021 00:00:00'), strtotime('20-11-2022 00:00:00')),
                 new PhotoCollectionIdFilter([$this->simple_linux_storage->getPhotoCollectionUuid()]),
             ],
             [
@@ -191,8 +190,8 @@ class SimpleLinuxStorageTest extends TestCase
     public function testlistPhotoQuantityByYear()
     {
         $expected = [
-            new PhotoQuantityYear('2021',2021, 7),
-            new PhotoQuantityYear('2020',2020, 3),
+            new PhotoQuantityYear('2022',2022, 6),
+            new PhotoQuantityYear('2021',2021, 1),
             new PhotoQuantityYear('2013',2013, 1),
         ];
 
