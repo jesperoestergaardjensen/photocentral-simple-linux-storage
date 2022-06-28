@@ -192,6 +192,7 @@ class SimpleLinuxStorageTest extends TestCase
         $expected = [
             new PhotoQuantityYear('2022',2022, 6),
             new PhotoQuantityYear('2021',2021, 1),
+            new PhotoQuantityYear('2020',2020, 3),
         ];
 
         $actual = $this->simple_linux_storage->listPhotoQuantityByYear([$this->simple_linux_storage->getPhotoCollectionUuid()]);
