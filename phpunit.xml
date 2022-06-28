@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- works fine with PHPUnit-3.6.10 -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage includeUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+    <report>
+      <clover outputFile="./clover.xml"/>
+    </report>
+  </coverage>
+  <!-- you can keep your own options in these elements -->
+  <logging>
+    <!-- and this is where your report will be written -->
+  </logging>
+</phpunit>
