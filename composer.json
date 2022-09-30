@@ -6,8 +6,8 @@
     "require": {
         "php": ">=7.4",
         "jesperoestergaardjensen/photocentral-storage" : "dev-main",
-        "jesperoestergaardjensen/linux-file-system-helper": "dev-main",
-        "jesperoestergaardjensen/linux-image-helper" : "dev-main"
+        "jesperoestergaardjensen/linux-file-system-helper": "^1.0.0",
+        "jesperoestergaardjensen/linux-image-helper" : "^1.0.0"
     },
     "autoload": {
         "psr-4": {

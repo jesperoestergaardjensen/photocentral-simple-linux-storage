@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1656450575">
-  <project timestamp="1656450575">
+<coverage generated="1664565110">
+  <project timestamp="1664565110">
     <file name="/home/jesper_privat/web-udvikling/photocentral-simple-linux-storage/src/Factory/LinuxFileFactory.php">
       <class name="PhotoCentralSimpleLinuxStorage\Factory\LinuxFileFactory" namespace="global">
         <metrics complexity="4" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="17" elements="20" coveredelements="18"/>
