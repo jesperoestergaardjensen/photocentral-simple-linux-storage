@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a515f31f1972ad9531c8d413ce3eb55",
+    "content-hash": "22aff4d19fcb53cf7ec5c52d30693aa3",
     "packages": [
         {
             "name": "jesperoestergaardjensen/linux-file-system-helper",
@@ -83,16 +83,16 @@
         },
         {
             "name": "jesperoestergaardjensen/photocentral-storage",
-            "version": "dev-main",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesperoestergaardjensen/photocentral-storage.git",
-                "reference": "2037f315f8c82e8abd74844a3607abf158c9d0f3"
+                "reference": "604f73122083e4fac9ae4410f981c454f98448dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/2037f315f8c82e8abd74844a3607abf158c9d0f3",
-                "reference": "2037f315f8c82e8abd74844a3607abf158c9d0f3",
+                "url": "https://api.github.com/repos/jesperoestergaardjensen/photocentral-storage/zipball/604f73122083e4fac9ae4410f981c454f98448dd",
+                "reference": "604f73122083e4fac9ae4410f981c454f98448dd",
                 "shasum": ""
             },
             "require": {
@@ -101,11 +101,10 @@
                 "php": ">=7.4"
             },
             "require-dev": {
-                "jesperoestergaardjensen/exif-samples": "1.0.0",
-                "jesperoestergaardjensen/photocentral-simple-linux-storage": "dev-main",
+                "jesperoestergaardjensen/exif-samples": "^1.0.0",
+                "jesperoestergaardjensen/photocentral-simple-linux-storage": "^1.0.0",
                 "phpunit/phpunit": "^9.5"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -120,9 +119,9 @@
             "description": "Repository that define photo storage(s) for PhotoCentral Main",
             "support": {
                 "issues": "https://github.com/jesperoestergaardjensen/photocentral-storage/issues",
-                "source": "https://github.com/jesperoestergaardjensen/photocentral-storage/tree/main"
+                "source": "https://github.com/jesperoestergaardjensen/photocentral-storage/tree/v1.0.0"
             },
-            "time": "2022-06-19T23:31:00+00:00"
+            "time": "2022-09-30T19:43:29+00:00"
         }
     ],
     "packages-dev": [
@@ -1712,12 +1711,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/type.git",
-                "reference": "33589696a54e5ae179413ec009d79e44ebe577cd"
+                "reference": "4d34b23933f255b0822758a44272222cac593eb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/33589696a54e5ae179413ec009d79e44ebe577cd",
-                "reference": "33589696a54e5ae179413ec009d79e44ebe577cd",
+                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/4d34b23933f255b0822758a44272222cac593eb4",
+                "reference": "4d34b23933f255b0822758a44272222cac593eb4",
                 "shasum": ""
             },
             "require": {
@@ -1760,7 +1759,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-09-19T05:28:34+00:00"
+            "time": "2022-10-01T05:56:17+00:00"
         },
         {
             "name": "sebastian/version",
@@ -1868,9 +1867,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "jesperoestergaardjensen/photocentral-storage": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

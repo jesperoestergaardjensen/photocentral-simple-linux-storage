@@ -5,7 +5,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.4",
-        "jesperoestergaardjensen/photocentral-storage" : "dev-main",
+        "jesperoestergaardjensen/photocentral-storage" : "^1.0.0",
         "jesperoestergaardjensen/linux-file-system-helper": "^1.0.0",
         "jesperoestergaardjensen/linux-image-helper" : "^1.0.0"
     },

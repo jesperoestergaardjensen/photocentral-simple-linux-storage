@@ -245,12 +245,12 @@ class SimpleLinuxStorageTest extends TestCase
     public function testlistPhotoQuantityByDay()
     {
         $expected = [
-            new PhotoQuantityDay('06',6, 1),
             new PhotoQuantityDay('18',18, 1),
+            new PhotoQuantityDay('06',6, 1),
         ];
 
         $actual = $this->simple_linux_storage->listPhotoQuantityByDay(9, 2020, [$this->simple_linux_storage->getPhotoCollectionUuid()]);
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals(sort($expected), sort($actual));
     }
 }
 
